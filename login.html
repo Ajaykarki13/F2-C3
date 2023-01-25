@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+</head>
+
+<body>
+    <form action="" class="form2">
+        <p class='message'></p>
+        <fieldset>
+            <legend>Login Here</legend>
+            <input type="email" class="email" placeholder="xyz@abc.com"><br><br>
+            <input type="password" class="password" placeholder="Password"><br><br>
+            <input type="submit" id="login" value="Login">
+        </fieldset>
+    </form>
+
+
+    <script>
+        let login = document.querySelector(".form2")
+        let input_email = document.querySelector(".email")
+        let input_password = document.querySelector(".password")
+        let msg = document.querySelector(".message")
+        let data;
+
+        login.addEventListener('submit', loginform)
+
+        function loginform(e) {
+            e.preventDefault()
+            data = JSON.parse(localStorage.getItem('data'))
+
+            if (checkdetail(input_email, input_password) == false) {
+
+                msg.innerHTML = "Login failed! Enter valid details.."
+                msg.style.color = "red"
+            }
+            else {
+                msg.innerHTML = "Login Success.."
+                msg.style.color = "green";
+                alert(tokennumber());
+                data.token=tokennumber();
+                window.location.href = "./chatgpt.html"
+            }
+
+        }
+
+        function checkdetail(input_email, input_password) {
+            for (let t of data) {
+                if (t.uremail == input_email.value && t.urpassword == input_password.value) {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        function tokennumber() {
+            let token = crypto.randomUUID()
+            return `Your token number is ${token}`;
+        }
+
+    </script>
+</body>
+
+</html>

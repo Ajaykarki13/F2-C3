@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+</head>
+
+<body>
+    <fieldset>
+        <legend>ChatGpt</legend>
+
+        <textarea class="type" cols="30" rows="10" placeholder="Type your questions here..."></textarea><br><br>
+        <button>Submit</button>
+       
+    </fieldset>
+    <h2 class="ansdisplay" style="color:brown"></h2><br>
+
+    <input type="text" class="tokenno" placeholder="Enter Token number" style="display:none" ><br>
+    <button class="speakbtn"style="display:none">SpeakText</button>
+    <script>
+
+        let arr = [{ ques: "what is chatgpt", ans: "An OpenAI software"}, { ques: "what is javascript", ans: "A Computer Language"},
+   { ques: "what is html", ans: "Hypertext Markup Language", img: " " }, { ques: "what is css", ans: "Cascading Style Sheets"}, { ques: "what is react", ans: "React is a javascript library/framework"}]
+
+   let quesbox= document.querySelector(".type")
+   let answerdisplay = document.querySelector(".ansdisplay")
+   let btn = document.querySelector("button")
+   let speakbtn=document.querySelector(".speakbtn")
+   let tokenno=document.querySelector(".tokenno")
+   btn.addEventListener("click",()=>{matchanswer(quesbox,answerdisplay,speakbtn,tokenno)})
+
+   function matchanswer(quesbox,answerdisplay,speakbtn,tokenno)
+   {
+    for(let a of arr)
+    {
+        if(quesbox.value==a.ques)
+        {
+            answerdisplay.innerHTML=a.ans;
+            speakbtn.style.display="block"
+            tokenno.style.display="block"
+        }
+    
+    }
+
+   }
+
+speakbtn.addEventListener("click",()=>{speak(answerdisplay)})
+function speak(answerdisplay)
+{
+    let utter = new SpeechSynthesisUtterance();
+    utter.lang="en-US"
+    utter.text=answerdisplay.innerHTML;
+    utter.volume=0.8;
+    window.speechSynthesis.speak(utter);
+}
+
+
+    </script>
+</body>
+
+</html>
