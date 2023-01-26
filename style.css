@@ -1,0 +1,26 @@
+body
+{
+    background-color:black;
+    color: black;
+    
+}
+fieldset
+{
+    padding: 20px;
+    margin: 5rem;
+}
+legend
+{
+    color:rgba(158, 201, 59, 0.89);
+    font-size:30px;
+}
+input
+{
+padding:10px;
+border-radius: 10px;
+}
+
+:placeholder-shown
+{
+    font-size:1rem
+}

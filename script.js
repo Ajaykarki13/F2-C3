@@ -27,13 +27,13 @@ function validateForm(e) {
     }
     //email
 
-    else if (uremail.indexOf('@') == -1) {
+    else if (validateEmail(uremail)==false ) {
         let emailerror = document.querySelector(".email")
         emailerror.innerHTML = " e-mail is invalid"
        
     }
     //password
-    else if (checkpassword(urpassword, urname, uremail) == false) {
+    else if (validatePassword(urpassword, urname, uremail) == false) {
         let passerror = document.querySelector(".pass")
         passerror.innerHTML = " Password is invalid"
 
@@ -54,8 +54,6 @@ function validateForm(e) {
     else {
         let msg = document.querySelector(".success")
         msg.innerHTML = "Success!"
-        msg.style.color='green';
-    
 
         let obj = { id: id++, urname, uremail, urpassword }
         arr.push(obj);
@@ -81,13 +79,14 @@ function checkname(urname) {
     return arr.length
 }
 
-function checkpassword(urpassword, urname, uremail) {
-    let passwordregex = 'Ajay1@'
-    if (urpassword == passwordregex && urpassword != urname && urpassword != uremail)
-        return true;
-    else { return false; }
-
+function validatePassword(urpassword, urname, uremail) {
+    if ((/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{3,}$/.test(urpassword)) && urpassword != urname && urpassword != uremail)
+  {
+    return true
+  }
+    return false
 }
+
 
 function checkemail(uremail)
 {
@@ -100,6 +99,16 @@ function checkemail(uremail)
     }
     return true;
 }
+
+function validateEmail(uremail) 
+{
+ if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(uremail))
+  {
+    return (true)
+  }
+    return (false)
+}
+
 
 
 

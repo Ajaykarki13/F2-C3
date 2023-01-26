@@ -5,21 +5,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login page</title>
+    <title> Your favourite and dream project chatGpt </title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <fieldset>
         <legend>ChatGpt</legend>
 
-        <textarea class="type" cols="30" rows="10" placeholder="Type your questions here..."></textarea><br><br>
+        <textarea class="type" cols="30" rows="10" placeholder="Type your questions here..."  style="padding:2rem"></textarea><br><br>
         <button>Submit</button>
        
     </fieldset>
-    <h2 class="ansdisplay" style="color:brown"></h2><br>
+    <h2 class="ansdisplay" style="color:brown;margin-left:5rem"></h2><br>
 
-    <input type="text" class="tokenno" placeholder="Enter Token number" style="display:none" ><br>
-    <button class="speakbtn"style="display:none">SpeakText</button>
+    <input type="text" class="tokenno" placeholder="Enter Token number" style="display:none;margin-left:5rem" ><br>
+    <button class="speakbtn"style="display:none;margin-left:5rem">SpeakText</button>
+    <p class="displayname" style="margin-left:5rem;font-size: 25px;color:brown"></p>
+    
     <script>
 
         let arr = [{ ques: "what is chatgpt", ans: "An OpenAI software"}, { ques: "what is javascript", ans: "A Computer Language"},
@@ -30,8 +33,10 @@
    let btn = document.querySelector("button")
    let speakbtn=document.querySelector(".speakbtn")
    let tokenno=document.querySelector(".tokenno")
+   let displayname=document.querySelector(".displayname")
+   //let calls = document.querySelector(".calls")
    btn.addEventListener("click",()=>{matchanswer(quesbox,answerdisplay,speakbtn,tokenno)})
-
+        let userdata;
    function matchanswer(quesbox,answerdisplay,speakbtn,tokenno)
    {
     for(let a of arr)
@@ -47,9 +52,28 @@
 
    }
 
-speakbtn.addEventListener("click",()=>{speak(answerdisplay)})
-function speak(answerdisplay)
+speakbtn.addEventListener("click",()=>{speak(answerdisplay,tokenno,displayname)})
+function speak(answerdisplay,tokenno,displayname)
 {
+    /*
+    Token should be verified, if verified display his name and a variable(“number of calls left”)
+By default every user who Login will get 10 calls to text to speak feature, that means he can max use speakText feature for 10 times.
+Number of calls variables should show the number of calls remaining everytime speakText button is clicked.
+If the token is not verified, display a suitable message.
+*/
+
+userdata = JSON.parse(localStorage.getItem('userdata'))
+if(userdata[1]==tokenno.value)
+{
+displayname.innerHTML=`USERNAME :- ${userdata[0].urname} `
+}
+else if(userdata[1]!=tokenno.value)
+{
+    displayname.innerHTML="Invalid Token number"
+
+}
+
+
     let utter = new SpeechSynthesisUtterance();
     utter.lang="en-US"
     utter.text=answerdisplay.innerHTML;
